@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation
+  has_one :profile, dependent: :destroy
   has_secure_password
 
   before_save { |user| user.email = email.downcase }
@@ -12,9 +13,6 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }
   validates :password_confirmation, presence: true
 
-  def self.authenticate(email, password)
-    find_by_email(email).try(:authenticate, password)
-  end
 
   private
 

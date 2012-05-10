@@ -18,10 +18,10 @@
 
 <%= form_tag sessions_path do %>
 
-  	<%= label_tag :email %><br />
+  	<%= label_tag :email %>
   	<%= text_field_tag :email, params[:email] %>
 
-  	<%= label_tag :password %><br />
+  	<%= label_tag :password %>
   	<%= password_field_tag :password %>
   <%= submit_tag "Sign in", class: "btn btn-large btn-primary" %>
   <% end %>

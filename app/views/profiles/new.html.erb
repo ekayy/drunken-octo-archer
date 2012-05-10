@@ -1,2 +1,29 @@
-<h1>Profiles#new</h1>
-<p>Find me in app/views/profiles/new.html.erb</p>
+<h1>Customize your Page</h1>
+
+
+<div class="row">
+  <div class="span6 offset3">
+
+  	<%= form_for @profile do |f| %>
+
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+
+      <%= f.label :content %>
+      <%= f.text_field :content %>  
+
+      <%= f.submit "Customize", class: "btn btn-large btn-primary" %>
+    <% end %>
+
+<!--<%= form_tag do %>
+
+  	<%= label_tag :title %>
+  	<%= text_field_tag :title, params[:title] %>
+
+  	<%= label_tag :content %>
+  	<%= text_field_tag :content %>
+  <%= submit_tag "Customize", class: "btn btn-large btn-primary" %>
+  <% end %>-->
+
+</div>
+</div>
