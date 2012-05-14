@@ -1,15 +1,16 @@
 class ProfilesController < ApplicationController
 	before_filter :signed_in_user
+	before_filter :set_user
   
   def new
   	@profile = Profile.new
   end
 
   def create
-  	@profile = current_user.build_profile(params[:profile])
+  	@profile = @user.build_profile(params[:profile])
   	if @profile.save
-      flash[:notice] = 'Profile was successfully created.'
-      redirect_to customize_path
+      flash[:success] = 'Profile was successfully created.'
+      redirect_to :action => 'show', :id => @user.id
     else
       flash[:notice] = 'Error.  Something went wrong.'
       render "new"
@@ -17,6 +18,34 @@ class ProfilesController < ApplicationController
   end
 
 	def show
+		 @user = User.find(params[:user_id])
+	end
+
+	def edit
+		@user = User.find(params[:id])
+		@profile = @user.profile(params[:user_id])
+	end
+
+	def update
+		@user = User.find(params[:id])
+		@profile = @user.profile
+		if @profile.update_attributes(params[:profile])
+      flash[:success] = "Profile updated"
+      redirect_to @profile
+    else
+      render 'edit'
+    end
+  end
+
+  private
+
+    def correct_user
+      @profile = current_user.profile.find_by_id(params[:id])
+      redirect_to root_path if @profile.nil?
+    end
+
+    def set_user
+  @user = User.find(session[:user_id])
 	end
 end
 

@@ -20,13 +20,13 @@ class UsersController < ApplicationController
   end
 
   def show
-  	@user = User.find(params[:id])
-    @profiles = @user.profile
+
   end
 
   def create
   	@user = User.new(params[:user])
   	if @user.save
+      session[:user_id] = @user.id
   	  sign_in @user
       flash[:success] = "Welcome to the Sample App!"
       redirect_to @user
